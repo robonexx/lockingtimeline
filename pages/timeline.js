@@ -70,8 +70,8 @@ const Card = ({ year, desc, title }) => {
       variants={cardVariant}
       initial='visible'
       animate={control}
-      >
-          <div className={styles.underlay}></div>
+    >
+      <div className={styles.underlay}></div>
       <span className={styles.year}>{year}</span>
       <motion.div
         className={styles.card}
@@ -82,10 +82,6 @@ const Card = ({ year, desc, title }) => {
         }}
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 5, scale: [1, 1.05, 1.05, 1.01, 1] }}
-        style={{
-          borderRadius: '2px',
-          filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.225)',
-        }}
       >
         <motion.h2>-- {title}</motion.h2>
         {/* {cardOpen && (
@@ -107,11 +103,14 @@ export default function timeline() {
   return (
     <motion.div className={styles.timeline}>
       <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
-      <SvgLine />
-      {years.map(({ year, desc, title }) => (
+      
+          {years.map(({ year, desc, title }) => (
+              <>
+          <SvgLine />
         <div key={year}>
           <Card year={year} desc={desc} title={title}></Card>
         </div>
+              </>
       ))}
     </motion.div>
   );
@@ -129,11 +128,11 @@ const SvgLine = () => {
 
   const animateIn = {
     pathLength: 1,
-    pathOffset: 0,
+    pathOffset: -1,
   };
   const animateOut = {
     pathLength: 1,
-    pathOffset: 1,
+    pathOffset: 0,
   };
 
   return (
@@ -150,8 +149,8 @@ const SvgLine = () => {
         <motion.line
           strokeWidth={5}
           stroke='black'
-          initial={{ pathLength: 0, pathOffset: 0 }}
-          animate={visible ? animateIn : animateIn}
+          initial={animateIn}
+          animate={animateOut}
           transition={transition}
           x1='0'
           y1='0'
@@ -162,12 +161,3 @@ const SvgLine = () => {
     </motion.div>
   );
 };
-
-/* 
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <line x1="0" y1="80" x2="100" y2="20" stroke="black" />
-
-  <!-- If you do not specify the stroke
-       color the line will not be visible -->
-</svg>
-  */

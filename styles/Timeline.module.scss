@@ -29,22 +29,20 @@
 
 .card_wrapper {
     position: relative;
+    display: block;
     width: 30rem;
     height: 10rem;
     margin: 300px auto;
     z-index: 10;
-    filter: drop-shadow(2px 2px 1px #ffc13b);
+    filter: drop-shadow(2px 2px 1px #ff6e40);
     border-left: #ffc13b 5px solid;
     
 }
 
 .underlay {
     position: absolute;
-    width: 90%;
-    height: 90%;
     width: 30rem;
     height: 10rem;
-    padding: 0.5rem 1.25rem;
     border-top: 5px black solid;
     background-image:linear-gradient(220deg, #ff6e40, #ffc13b);
     clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
@@ -53,16 +51,19 @@
 }
 
 .card {
+    position: absolute;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
     font-family: sans-serif;
     width: 75%;
-    height: 90%;
-    margin: 5% 0% 5% 25%;
+    height: 80%;
+    margin: 2% 0% 0% 25%;
     padding: 0.5rem;
     background-color: rgb(227, 227, 227);
+    
     
     }
     
@@ -71,16 +72,18 @@
         color: #ff6e40;
         align-self: flex-end;
         margin-right: 1rem;
+        filter: drop-shadow(1px 1px 1px rgba(0,0,0,.325));
     }
     
     .card p {
-        color: #fff;
+        color: #484848;
         font-size: 1rem;
         padding: 1rem 0 0;
         line-height: 1.2rem;
         align-self: flex-start;
         max-width: 80%;
         margin-left: 5%;
+        filter: drop-shadow(1px 1px 1px rgba(0,0,0,.325));
     }
     
     .expand {
@@ -90,7 +93,7 @@
     .line {
         position: absolute;
         top: 0;
-        right: 20rem;
+        left: 40%;
         width:200px;
         height: 100vh;
         z-index: 1;
@@ -98,6 +101,5 @@
         svg {
             margin-top: 0px;
             width: 46px;
-            /* height: 20%; */
         }
     }
