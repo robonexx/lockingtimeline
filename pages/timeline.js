@@ -10,16 +10,19 @@ import styles from '../styles/Timeline.module.scss';
 const years = [
   {
     year: 1970,
+    num: 1,
     title: 'The birth of Campbellocking',
     desc: 'In Don´s early days at collage he wanted to learn... ',
   },
   {
     year: 1971,
+    num: 2,
     title: 'title',
     desc: 'Locking spread, the Campbellockers, Other groups around the area started doin shows, Gogo brother, 33 rpm, Wattswriters lorem lorem lorem',
   },
   {
     year: 1972,
+    num: 3,
     title: 'title',
     desc: 'The lockers performed',
   },
@@ -103,45 +106,73 @@ export default function timeline() {
   return (
     <motion.div className={styles.timeline}>
       <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
-      
-          {years.map(({ year, desc, title }) => (
-              <>
-          <SvgLine />
-        <div key={year}>
-          <Card year={year} desc={desc} title={title}></Card>
-        </div>
-              </>
+
+      {years.map(({ year, desc, title, num }) => (
+        <>
+          <SvgLine key={num} />
+          <div key={year}>
+            <Card year={year} desc={desc} title={title}></Card>
+          </div>
+        </>
       ))}
     </motion.div>
   );
 }
 
-const SvgLine = () => {
-  const [visible, setVisible] = useState(true);
+const SvgLine = ({ num }) => {
+  const [count, setCount] = useState(1);
 
-  let lineHeight = 1000;
+  const control = useAnimation();
+  const [ref, inView] = useInView();
 
-  const transition = {
-    duration: 2,
-    ease: 'easeInOut',
+  useEffect(() => {
+    if (inView) {
+      control.start('visible');
+
+      setCount(count + 10);
+    } else {
+      control.start('hidden');
+      setCount(count - 10);
+    }
+  }, [control, inView]);
+
+  const lineVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.6 },
+    },
   };
 
-  const animateIn = {
-    pathLength: 1,
-    pathOffset: -1,
-  };
-  const animateOut = {
-    pathLength: 1,
-    pathOffset: 0,
+  const svgVariants = {
+    hidden: { pathLength: 1, pathOffset: -1 },
+    visible: {
+      pathLength: 1,
+      pathOffset: 0,
+      transition: {
+        duration: 2,
+        ease: 'easeInOut',
+      },
+    },
   };
 
   return (
-    <motion.div className={styles.line}>
+    <motion.div
+      className={styles.line}
+      
+      variants={lineVariants}
+      initial='hidden'
+      animate={control}
+    >
+      {num}
       <motion.svg
         fill='none'
         stroke='currentColor'
-        viewBox='0 0 1 11'
-        xmlns='http://www.w3.org/2000/svg'
+        viewBox={`0 0 1 ${10 * count}`}
+              ref={ref}
+              variants={svgVariants}
+              initial='hidden'
+              animate={control}
         /* onTap={() => {
           setVisible((val) => !val);
         }} */
@@ -149,9 +180,7 @@ const SvgLine = () => {
         <motion.line
           strokeWidth={5}
           stroke='black'
-          initial={animateIn}
-          animate={animateOut}
-          transition={transition}
+         
           x1='0'
           y1='0'
           x2='0'
