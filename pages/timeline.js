@@ -9,38 +9,38 @@ import styles from '../styles/Timeline.module.scss';
 
 const years = [
   {
-        year: 1970,
-      num: 1,
-    title: 'The birth of Campbellocking',
-    desc: 'In Don´s early days at collage he wanted to learn... ',
+    year: 1970,
+    num: 1,
+    title: ' THE CREATION OF LOCKING',
+    desc: 'While attending Trade Tech College, Elroy Skifford a friend starts to teach Don the soul dances of the time. Don is awkward and has an unusual style where he locks his body for a moment while doing these soul dances. His friends like it, and encourage him, calling it “The Locks”. The original art form of the Campbellock is based on the improvisation of the individual doing dance steps called the locks. The urban subculture of South Central Los Angeles is quick to catch on. A new urban subculture is born overnight and the history of Campbellocking begins.',
   },
   {
-      year: 1971,
-      num: 2,
-    title: 'title',
-    desc: 'Locking spread, the Campbellockers, Other groups around the area started doin shows, Gogo brother, 33 rpm, Wattswriters lorem lorem lorem',
+    year: 1971,
+    num: 2,
+    title: '-- Toni Basil',
+    desc: 'Don Campbell meets Toni Basil, at the Citadel Club, they become friends and involved. She is a young talented choreographer and the daughter of a very successful entertainment executive and band leader in Las Vegas. She has excellent entertainment business contacts, she is able to open doors with a phone call ',
   },
   {
-      year: 1972,
-      num: 3,
-    title: 'title',
-    desc: 'The lockers performed',
+    year: 1972,
+    num: 3,
+    title: 'Campbellockers',
+    desc: 'Sonny Craver Don’s manager Books The Cambellockers they are still Dancing Solos No Unison Routines.The tour falls apart, and ends early.',
   },
   {
-      year: 1973,
-      num: 4,
+    year: 1973,
+    num: 4,
     title: 'title',
     desc: 'Lockers plit, and kick and droppedLorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt fuga ratione est dolore explicabo sequi cum perspiciatis voluptates totam minima, at reprehenderit nam. Molesti mollitia,  quod ea atque accusamus possimus',
   },
   {
-      year: 1974,
-      num: 5,
+    year: 1974,
+    num: 5,
     title: 'title',
     desc: 'New set ups of the lockers Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt fuga ratione est dolore explicabo sequi cum perspiciatis voluptates totam minima, at reprehenderit nam. Molesti mollitia,  quod ea atque accusamus possimus',
   },
   {
-      year: 1975,
-      num: 6,
+    year: 1975,
+    num: 6,
     title: 'title',
     desc: 'Don continued, Fred was an actor, Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt fuga ratione est dolore explicabo sequi cum perspiciatis voluptates totam minima, at reprehenderit nam. Molesti mollitia,  quod ea atque accusamus possimus',
   },
@@ -87,7 +87,7 @@ const Card = ({ year, desc, title }) => {
           layout: { duration: 0.6, type: 'spring', easing: 'ease' },
         }}
         initial={{ opacity: 0, y: 0 }}
-        animate={{ opacity: 1, y: 5, scale: [1, 1.05, 1.05, 1.01, 1] }}
+        animate={{ opacity: 1, y: 0, scale: [1, 1.05, 1.05, 1.01, 1] }}
       >
         <motion.h2>-- {title}</motion.h2>
         {/* {cardOpen && (
@@ -105,43 +105,23 @@ const Card = ({ year, desc, title }) => {
   );
 };
 
-export default function timeline() {
-  return (
-    <motion.div className={styles.timeline}>
-          <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
-          
+const SvgLine = ({ num }) => {
+  const [count, setCount] = useState(10);
 
-      {years.map(({ year, desc, title, num }) => (
-    
-          <div key={year}>
-              <SvgLine num={num} />
-            <Card year={year} desc={desc} title={title}></Card>
-          </div>
-      ))}
-    </motion.div>
-  );
-}
-
-const SvgLine = ({num}) => {
-    const [count, setCount] = useState(10)
-
-
-    const svgY = 100 / 100 * count
+  const svgY = (100 / 100) * count;
 
   const control = useAnimation();
   const [ref, inView] = useInView();
 
   useEffect(() => {
     if (inView) {
-        control.start('visible');
-        setCount((count *= num / 2))
-    
+      control.start('visible');
+      setCount((count * num) / 4);
     } else {
-        control.start('hidden');
-        
+      control.start('hidden');
     }
   }, [control, inView]);
-    
+
   const lineVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -161,20 +141,21 @@ const SvgLine = ({num}) => {
       },
     },
   };
-  
 
   return (
-      <motion.div className={styles.line}
+    <motion.div
+      className={styles.line}
       ref={ref}
       variants={lineVariants}
       initial='hidden'
-          animate={control}>
-          {num}
+      animate={control}
+    >
+      {num}
       <motion.svg
         fill='none'
-              stroke='currentColor'
-       viewBox={`0 0 1 ${svgY}`}
-       
+        stroke='currentColor'
+        viewBox={`0 0 1 ${svgY}`}
+
         /* onTap={() => {
           setVisible((val) => !val);
         }} */
@@ -182,13 +163,117 @@ const SvgLine = ({num}) => {
         <motion.line
           strokeWidth={5}
           stroke='black'
-         variants={svgVariants}
+          variants={svgVariants}
           x1='0'
           y1='0'
           x2='0'
-            y2='100%'
+          y2='100%'
         />
       </motion.svg>
     </motion.div>
   );
 };
+
+export default function timeline() {
+  return (
+    <div className={styles.timeline_page}>
+      <motion.div className={styles.timeline}>
+        <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
+        {years.map(({ year, desc, title, num }) => (
+          <div key={year}>
+            <SvgLine num={num} />
+            <Card year={year} desc={desc} title={title}></Card>
+          </div>
+        ))}
+      </motion.div>
+      <div className={styles.timeline_container}>
+        <section>
+          <h2>
+            The following dancers were the first to learn the Campbellock at the
+            Summit Names with an asterisk denote they created a dance step that
+            is still used in locking today.
+          </h2>
+          <p className={styles.special}>
+            The names are listed in first name alphabetical order
+          </p>
+          <p>
+            1. Arneta Johnson 2. Bill “Slim the Robot” Williams 3. Charles
+            “Robot” Washington * 4. Damita Jo Freeman * 5. Don “Campbellock”
+            Campbell * 6. Edwin "Buddy GoGo" Lombard * 7. Eugene “F&M” Henderson
+            8. Fred “Mr. Penguin” Berry * 9. Fredi Maxi 10. Greg “Campbellock
+            Jr.” Pope * 11. James “Skeeter Rabbit” Higgins * 12. Jeffrey
+            “Catman” McKentire 13. Jimmy “Scooby Doo” Foster * 14. Johnnie
+            “Sambo-Lock” McCloud * 15. Kevin “YoYo” Lombard{' '}
+          </p>
+        </section>
+        <section>
+          <h2>
+            THE 2ND DANCERS TO LEARN By this time a strong underground following
+            has taking place. As dancers visit other clubs more dancers join and
+            learn. The names are in alphabetical order by their first name
+          </h2>
+          <p className={styles.special}>
+            The names are listed in first name alphabetical order
+          </p>
+          <p>
+            1. Alpha “Omega” Anderson * 2. Bishop Hall 3. Charles “Mr. X”
+            Marable 4. Greg “Captain Crunch” Daindridge 5. Haywood “Tito“
+            Collins 6. John “Okie Doke” Wilson 7. Kenny Flealock Henderson 8.
+            Leo “Shaboo” Walker 9. Lockheart 10. Michael “Peek-A-Boo” Frenke *
+          </p>
+          <p>
+            Soul Train begins taping from Los Angeles, Don is asked if he has
+            any friends that can dance like him. He calls his friends from the
+            Summit on the Hill, The Citadel, Maverick Flats, & Blueberry Hill.
+            Locking is now on a weekly National TV. People love it, It’s a Hit!
+          </p>
+          <p className={styles.special}>
+            1. Alpha “Omega” Anderson 2. Bill “Slim the Robot” Williams 3.
+            Charles “Robot” Washington 4. Charles “Mr. X” Marable 5. Damita Jo
+            Freeman 6. Don “Campbellock” Campbell 7. Edwin “Buddy Go Go” Lombard
+            8. Eugene “F&M” Henderson 9. Fredi Maxi 10. Fred “Mr. Penguin” Berry
+            11. Greg “Campbellock Jr.” Pope 12. Greg “Captain Crunch” Daindridge
+            13. James “Skeeter Rabbit” Higgins 14. Jimmy “Scooby Doo” Foster 15.
+            Leo “Leolock” Williamson 16. Lorna Dune 17. Morris “Cisco Kid”
+            Bailey 18. Michael “Peek-A-Boo” Frenke 19. Pat “Madam Butterfly”
+            Davis
+          </p>
+        </section>
+        <section>
+          <h2>The CAMPBELLOCKERS!</h2>
+          <p>
+            Don “Campbellock” Campbell Johnnie “SamboLock” McCloud Bill “Slim
+            the Robot” Williams Charles “Robot” Washington Fred “Mr. Penguin”
+            Berry
+          </p>
+          <h2>
+            Soul Train Gang Goes on Tour Lots of Hard Work, But No Money! When
+            they spoke to show producer Don Cornilus about receiving payment
+            they were banned from performing on the show.
+          </h2>
+          <p>
+            Toni Basil becomes both Don’s personal manager as well as the
+            “Campbellockers” manager. Using her industry contacts she is able to
+            book the act onto a variety of TV shows.
+          </p>
+          <h2>GoGo Brothers</h2>
+          <p>
+            The first two groups to organize were the Go-Go Brothers, and the
+            Yo-Yo Brothers. By performing at schools and civic functions, they
+            were first to pass the concept of locking to other interested young
+            adults living in the inner and outer city. They were one of the
+            first groups to perform unison steps and choreography.
+          </p>
+          <p className={styles.special}>
+            James “Skeeter Rabbit” Higgins Edwin “Buddy Go Go” Lombard Kevin “Yo
+            Yo” Lombard Tony “Go Go” Lewis
+          </p>
+        </section>
+        <section></section>
+        <section></section>
+        <section></section>
+        <section></section>
+      </div>
+    </div>
+  );
+}
