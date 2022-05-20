@@ -9,35 +9,38 @@ import styles from '../styles/Timeline.module.scss';
 
 const years = [
   {
-    year: 1970,
-    num: 1,
+        year: 1970,
+      num: 1,
     title: 'The birth of Campbellocking',
     desc: 'In Don´s early days at collage he wanted to learn... ',
   },
   {
-    year: 1971,
-    num: 2,
+      year: 1971,
+      num: 2,
     title: 'title',
     desc: 'Locking spread, the Campbellockers, Other groups around the area started doin shows, Gogo brother, 33 rpm, Wattswriters lorem lorem lorem',
   },
   {
-    year: 1972,
-    num: 3,
+      year: 1972,
+      num: 3,
     title: 'title',
     desc: 'The lockers performed',
   },
   {
-    year: 1973,
+      year: 1973,
+      num: 4,
     title: 'title',
     desc: 'Lockers plit, and kick and droppedLorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt fuga ratione est dolore explicabo sequi cum perspiciatis voluptates totam minima, at reprehenderit nam. Molesti mollitia,  quod ea atque accusamus possimus',
   },
   {
-    year: 1974,
+      year: 1974,
+      num: 5,
     title: 'title',
     desc: 'New set ups of the lockers Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt fuga ratione est dolore explicabo sequi cum perspiciatis voluptates totam minima, at reprehenderit nam. Molesti mollitia,  quod ea atque accusamus possimus',
   },
   {
-    year: 1975,
+      year: 1975,
+      num: 6,
     title: 'title',
     desc: 'Don continued, Fred was an actor, Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt fuga ratione est dolore explicabo sequi cum perspiciatis voluptates totam minima, at reprehenderit nam. Molesti mollitia,  quod ea atque accusamus possimus',
   },
@@ -105,37 +108,40 @@ const Card = ({ year, desc, title }) => {
 export default function timeline() {
   return (
     <motion.div className={styles.timeline}>
-      <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
+          <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
+          
 
       {years.map(({ year, desc, title, num }) => (
-        <>
-          <SvgLine key={num} />
+    
           <div key={year}>
+              <SvgLine num={num} />
             <Card year={year} desc={desc} title={title}></Card>
           </div>
-        </>
       ))}
     </motion.div>
   );
 }
 
-const SvgLine = ({ num }) => {
-  const [count, setCount] = useState(1);
+const SvgLine = ({num}) => {
+    const [count, setCount] = useState(10)
+
+
+    const svgY = 100 / 100 * count
 
   const control = useAnimation();
   const [ref, inView] = useInView();
 
   useEffect(() => {
     if (inView) {
-      control.start('visible');
-
-      setCount(count + 10);
+        control.start('visible');
+        setCount((count *= num / 2))
+    
     } else {
-      control.start('hidden');
-      setCount(count - 10);
+        control.start('hidden');
+        
     }
   }, [control, inView]);
-
+    
   const lineVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -155,24 +161,20 @@ const SvgLine = ({ num }) => {
       },
     },
   };
+  
 
   return (
-    <motion.div
-      className={styles.line}
-      
+      <motion.div className={styles.line}
+      ref={ref}
       variants={lineVariants}
       initial='hidden'
-      animate={control}
-    >
-      {num}
+          animate={control}>
+          {num}
       <motion.svg
         fill='none'
-        stroke='currentColor'
-        viewBox={`0 0 1 ${10 * count}`}
-              ref={ref}
-              variants={svgVariants}
-              initial='hidden'
-              animate={control}
+              stroke='currentColor'
+       viewBox={`0 0 1 ${svgY}`}
+       
         /* onTap={() => {
           setVisible((val) => !val);
         }} */
@@ -180,11 +182,11 @@ const SvgLine = ({ num }) => {
         <motion.line
           strokeWidth={5}
           stroke='black'
-         
+         variants={svgVariants}
           x1='0'
           y1='0'
           x2='0'
-          y2='100%'
+            y2='100%'
         />
       </motion.svg>
     </motion.div>
