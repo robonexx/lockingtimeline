@@ -7,6 +7,24 @@ import { useState, useEffect } from 'react';
 //styles
 import styles from '../styles/Timeline.module.scss';
 
+
+const info = [
+  {
+    headline: "The following dancers were the first to learn the Campbellock at the Summit Names with an asterisk denote they created a dance step that is still used in locking today.",
+    subhead: "The names are listed in first name alphabetical order",
+    text1: " 1. Arneta Johnson 2. Bill “Slim the Robot” Williams 3. Charles “Robot” Washington * 4. Damita Jo Freeman * 5. Don “Campbellock” Campbell * 6. Edwin “Buddy gogo” Lombard * 7. Eugene “F&M” Henderson 8. Fred “Mr. Penguin” Berry * 9. Fredi Maxi 10. Greg “Campbellock Jr.” Pope * 11. James “Skeeter Rabbit” Higgins * 12. Jeffrey “Catman” McKentire 13. Jimmy “Scooby Doo” Foster * 14. Johnnie “Sambo-Lock” McCloud * 15. Kevin “YoYo” Lombard{' '}",
+    paragraph: "",
+    text2: "",
+  },
+  {
+    headline: "THE 2ND DANCERS TO LEARN By this time a strong underground following has taking place. As dancers visit other clubs more dancers join and learn. The names are in alphabetical order by their first name",
+    subhead: "The names are listed in first name alphabetical order",
+    text1: "1. Alpha “Omega” Anderson * 2. Bishop Hall 3. Charles “Mr. X” Marable 4. Greg “Captain Crunch” Daindridge 5. Haywood “Tito“ Collins 6. John “Okie Doke” Wilson 7. Kenny Flealock Henderson 8. Leo “Shaboo” Walker 9. Lockheart 10. Michael “Peek-A-Boo” Frenke *",
+    paragraph: "  Soul Train begins taping from Los Angeles, Don is asked if he has any friends that can dance like him. He calls his friends from the Summit on the Hill, The Citadel, Maverick Flats, & Blueberry Hill. Locking is now on a weekly National TV. People love it, It’s a Hit!",
+    text2: " 1. Alpha “Omega” Anderson 2. Bill “Slim the Robot” Williams 3. Charles “Robot” Washington 4. Charles “Mr. X” Marable 5. Damita Jo Freeman 6. Don “Campbellock” Campbell 7. Edwin “Buddy Go Go” Lombard 8. Eugene “F&M” Henderson 9. Fredi Maxi 10. Fred “Mr. Penguin” Berry 11. Greg “Campbellock Jr.” Pope 12. Greg “Captain Crunch” Daindridge 13. James “Skeeter Rabbit” Higgins 14. Jimmy “Scooby Doo” Foster 15. Leo “Leolock” Williamson 16. Lorna Dune 17. Morris “Cisco Kid” Bailey 18. Michael “Peek-A-Boo” Frenke 19. Pat “Madam Butterfly” Davis",
+  }
+]
+
 const years = [
   {
     year: 1970,
@@ -44,6 +62,12 @@ const years = [
     title: 'title',
     desc: 'Don continued, Fred was an actor, Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt fuga ratione est dolore explicabo sequi cum perspiciatis voluptates totam minima, at reprehenderit nam. Molesti mollitia,  quod ea atque accusamus possimus',
   },
+  {
+    year: 1976,
+    num: 7,
+    title: '1976',
+    desc: 'sh oi ojn iosjoig jvoiså jgåjfksj ajg öajg öjfö jgöj, oasnvk  ,svks ndk,ms,dd vkpasdm v,sdm,v msdk vms,dmksd ,s msgk',
+  },
 ];
 
 const cardVariant = {
@@ -56,7 +80,8 @@ const cardVariant = {
   },
 };
 
-const Card = ({ year, desc, title }) => {
+const Card = ({ year, desc, title}) => {
+  console.log()
   const [cardOpen, setCardOpen] = useState(false);
   const control = useAnimation();
   const [ref, inView] = useInView();
@@ -105,6 +130,18 @@ const Card = ({ year, desc, title }) => {
   );
 };
 
+const Section = ({ headline, subhead, text1 }) => {
+  return (
+      <section>
+        <motion.h2>{headline}</motion.h2>
+        <p>{subhead}</p>
+          <p>
+           {text1}
+          </p>
+      </section>
+  );
+};
+
 const SvgLine = ({ num }) => {
   const [count, setCount] = useState(10);
 
@@ -116,7 +153,7 @@ const SvgLine = ({ num }) => {
   useEffect(() => {
     if (inView) {
       control.start('visible');
-      setCount((count * num) / 4);
+      setCount((count * num) / 6);
     } else {
       control.start('hidden');
     }
@@ -165,7 +202,7 @@ const SvgLine = ({ num }) => {
           stroke='black'
           variants={svgVariants}
           x1='0'
-          y1='0'
+          y1='0%'
           x2='0'
           y2='100%'
         />
@@ -179,14 +216,22 @@ export default function timeline() {
     <div className={styles.timeline_page}>
       <motion.div className={styles.timeline}>
         <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
-        {years.map(({ year, desc, title, num }) => (
+        {years.map(({ year, desc, title, num, headline, subhead, text1 }) => (
           <div key={year}>
             <SvgLine num={num} />
-            <Card year={year} desc={desc} title={title}></Card>
+            <Card year={year} desc={desc} title={title}></Card>           
           </div>
-        ))}
+        ))}        
       </motion.div>
       <div className={styles.timeline_container}>
+      {info.map(({ headline, subhead, text1 }, idx) => (
+            <div  key={idx}>
+            <Section headline={headline} subhead={subhead} text1={text1}></Section>
+            </div>        
+        ))}
+
+      </div>
+     {/*  <div className={styles.timeline_container}>
         <section>
           <h2>
             The following dancers were the first to learn the Campbellock at the
@@ -205,8 +250,8 @@ export default function timeline() {
             “Catman” McKentire 13. Jimmy “Scooby Doo” Foster * 14. Johnnie
             “Sambo-Lock” McCloud * 15. Kevin “YoYo” Lombard{' '}
           </p>
-        </section>
-        <section>
+        </section> */}
+       {/*  <section>
           <h2>
             THE 2ND DANCERS TO LEARN By this time a strong underground following
             has taking place. As dancers visit other clubs more dancers join and
@@ -269,11 +314,11 @@ export default function timeline() {
             Yo” Lombard Tony “Go Go” Lewis
           </p>
         </section>
+        <section>bla bal bal</section>
         <section></section>
         <section></section>
-        <section></section>
-        <section></section>
-      </div>
+        <section></section> */}
+      {/* </div> */}
     </div>
   );
 }
