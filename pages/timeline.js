@@ -214,6 +214,7 @@ const SvgLine = ({ num }) => {
 export default function timeline() {
   return (
     <div className={styles.timeline_page}>
+       <a className={styles.goback}href="/">Go Back</a>
       <motion.div className={styles.timeline}>
         <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
         {years.map(({ year, desc, title, num, headline, subhead, text1 }) => (

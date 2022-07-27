@@ -1,3 +1,14 @@
+.goback {
+    position: fixed;
+    top: 5vh;
+    left: 8vw;
+    padding: 4px 8px;
+    background: black;
+    color: white;
+    border: 5px solid orange;
+    z-index: 1000;
+}
+
 .timeline_page {
     display: flex;
     width: 100%;

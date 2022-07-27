@@ -1,4 +1,14 @@
 
+.goback {
+    position: absolute;
+    top: 5vh;
+    left: 8vw;
+    padding: 4px 8px;
+    background: black;
+    color: white;
+    border: 5px solid orange;
+    z-index: 1000;
+}
 .slider {
     position: relative;
     width: 100%;
@@ -19,6 +29,7 @@
         z-index: 100;
         color: white;
         letter-spacing: 2px;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.562);
     }
 
     > p {
@@ -30,6 +41,7 @@
         z-index: 100;
         color: white;
         letter-spacing: 2px;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.562);
     }
 
     > .row {
@@ -43,6 +55,7 @@
             height: 70vh;
             background: rgb(0, 0, 0);           
             overflow: hidden;
+            box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.411);
 
            
             

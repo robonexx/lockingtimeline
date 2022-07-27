@@ -45,6 +45,7 @@ export default function timelineSlider() {
     }
   return (
     <>  
+    <a className={styles.goback}href="/">Go Back</a>
     <div className={styles.slider}>
     <button onClick={btnRight}
         className={styles.btn_left}><span>Go back in time</span></button>
