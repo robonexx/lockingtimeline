@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -13,10 +14,10 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-         Timeline of locking classic<a href="/timeline">click to check</a>
+         Timeline of locking classic<Link href="/timeline">click to check</Link>
         </h1>
         <h1 className={styles.title}>
-         Timeline of locking slider<a href="/timelineSlider">click to check</a>
+         Timeline of locking slider<Link href="/timelineSlider">click to check</Link>
         </h1>
 
        
