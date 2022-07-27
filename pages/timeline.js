@@ -151,7 +151,7 @@ const SvgLine = ({ num }) => {
   const control = useAnimation();
   const [ref, inView] = useInView();
 
-  useEffect((count, num) => {
+  useEffect((num) => {
     if (inView) {
       control.start('visible');
       setCount((count * num) / 6);
