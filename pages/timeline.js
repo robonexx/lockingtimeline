@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 
 //styles
 import styles from '../styles/Timeline.module.scss';
+import Link from 'next/link';
 
 
 const info = [
@@ -82,7 +83,7 @@ const cardVariant = {
 
 const Card = ({ year, desc, title}) => {
   console.log()
-  const [cardOpen, setCardOpen] = useState(false);
+ /*  const [cardOpen, setCardOpen] = useState(false); */
   const control = useAnimation();
   const [ref, inView] = useInView();
 
@@ -150,7 +151,7 @@ const SvgLine = ({ num }) => {
   const control = useAnimation();
   const [ref, inView] = useInView();
 
-  useEffect(() => {
+  useEffect((count, num) => {
     if (inView) {
       control.start('visible');
       setCount((count * num) / 6);
@@ -211,10 +212,10 @@ const SvgLine = ({ num }) => {
   );
 };
 
-export default function timeline() {
+export default function Timeline() {
   return (
     <div className={styles.timeline_page}>
-       <a className={styles.goback}href="/">Go Back</a>
+       <Link className={styles.goback}href="/">Go Back</Link>
       <motion.div className={styles.timeline}>
         <h1 className={styles.timeline_heading}>LOCKING TIMELINE</h1>
         {years.map(({ year, desc, title, num, headline, subhead, text1 }) => (

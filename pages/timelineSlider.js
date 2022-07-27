@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import styles from '../styles/timeSlider.module.scss'
 import {motion} from 'framer-motion'
+import Link from 'next/link'
 
 const info = [
     {
@@ -30,7 +31,7 @@ const info = [
     },
 ]
 
-export default function timelineSlider() {
+export default function TimelineSlider() {
     const [position, setPosition] = useState(0);
 
     const btnRight = () => {
@@ -45,7 +46,7 @@ export default function timelineSlider() {
     }
   return (
     <>  
-    <a className={styles.goback}href="/">Go Back</a>
+    <Link className={styles.goback} href="/">Go Back</Link>
     <div className={styles.slider}>
     <button onClick={btnRight}
         className={styles.btn_left}><span>Go back in time</span></button>
